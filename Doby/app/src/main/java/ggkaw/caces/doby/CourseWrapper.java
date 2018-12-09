@@ -138,6 +138,18 @@ public class CourseWrapper implements Serializable {
         return schedule;
     }
 
+    public Vector<String> returnAssignments() {
+        Vector<String> totalInstances = new Vector<String>();
+        String curType;
+        for(int i = 0; i < this.allInstances.size(); i++) {
+            curType = this.allInstances.elementAt(i).type;
+            if(curType.equals("Assignment") || curType.equals("Exam") || curType.equals("Lab Report")) {
+                totalInstances.add(this.allInstances.elementAt(i).name);
+            }
+        }
+        return totalInstances;
+    }
+
 //    public static void main(String[] args) {
 //        Course EK307 = new Course("EK307", 2, "9/1/2018", "12/17/2018");
 //        Course.addInstances(EK307,"Monday", "Lecture", "10:10", "11:55", "AM", "AM");

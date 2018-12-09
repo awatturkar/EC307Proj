@@ -267,10 +267,13 @@ public class HomePage extends AppCompatActivity {
         // get whatever the current day in the first block is
         Calendar cfirst = CourseInstance.settingTime(today);
         cfirst.add(Calendar.DATE,-1);
-
         today = CourseInstance.calDateToString(cfirst);
-        tomorrow = today;
-        nextDay = tomorrow;
+
+        cfirst.add(Calendar.DATE, 1);
+        tomorrow = CourseInstance.calDateToString(cfirst);
+
+        cfirst.add(Calendar.DATE, 1);
+        nextDay = CourseInstance.calDateToString(cfirst);
 
         //put today, tomorrow, and next day in the gui!
 
@@ -322,13 +325,19 @@ public class HomePage extends AppCompatActivity {
 
         Vector<String> courseNames = new Vector<String>();
 
+        // need to pass vector of course instance names
+
         for(int i = 0; i < cwrap.allCourses.size(); i++) {
             courseNames.add(cwrap.allCourses.elementAt(i).name);
         }
 
+        Vector<String> assignmentNames = cwrap.returnAssignments();
+
         String[] stringNames = courseNames.toArray(new String[courseNames.size()]);
+        String[] stringAssignmentNames = assignmentNames.toArray(new String[assignmentNames.size()]);
 
         DeleteIntent.putExtra("Course Names", stringNames);
+        DeleteIntent.putExtra("Assignment names", stringAssignmentNames);
 
         startActivity(DeleteIntent);
     }
