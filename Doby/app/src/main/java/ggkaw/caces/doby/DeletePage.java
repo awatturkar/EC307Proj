@@ -18,7 +18,7 @@ public class DeletePage extends AppCompatActivity {
         setContentView(R.layout.activity_delete_page);
 
         String[] courseNames = getIntent().getStringArrayExtra("Course Names");
-        Spinner s = (Spinner) findViewById(R.id.Course_Assign_Spin);
+        Spinner s = (Spinner) findViewById(R.id.course_delete_spin);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, courseNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
@@ -26,7 +26,7 @@ public class DeletePage extends AppCompatActivity {
 
     public void deleteCourse(View view) {
         // get coursename from dropdown and delete it using the delete the delete function
-        Spinner s = (Spinner) findViewById(R.id.Course_Assign_Spin);
+        Spinner s = (Spinner) findViewById(R.id.course_delete_spin);
         String courseName = s.getSelectedItem().toString();
         cwrap = new CourseWrapper((CourseWrapper) getIntent().getSerializableExtra("Course Wrapper"));
         cwrap.deleteCourse(courseName);

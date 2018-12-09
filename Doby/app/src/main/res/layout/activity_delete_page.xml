@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.212" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/course_delete_spin"
         android:layout_width="199dp"
         android:layout_height="31dp"
         android:layout_marginStart="8dp"
