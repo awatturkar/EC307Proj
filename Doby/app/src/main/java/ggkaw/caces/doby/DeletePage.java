@@ -10,7 +10,7 @@ import android.widget.Spinner;
 
 public class DeletePage extends AppCompatActivity {
 
-    CourseWrapper cwrap;
+    CourseWrapper cwrap = new CourseWrapper((CourseWrapper) getIntent().getSerializableExtra("Course Wrapper"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,16 +22,26 @@ public class DeletePage extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, courseNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
+
+        String[] assignmentNames = getIntent().getStringArrayExtra("Assignment Names");
+        Spinner s2 = (Spinner) findViewById(R.id.Assignment_Spinner);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, assignmentNames);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s2.setAdapter(adapter2);
     }
 
     public void deleteCourse(View view) {
         // get coursename from dropdown and delete it using the delete the delete function
         Spinner s = (Spinner) findViewById(R.id.course_delete_spin);
         String courseName = s.getSelectedItem().toString();
-        cwrap = new CourseWrapper((CourseWrapper) getIntent().getSerializableExtra("Course Wrapper"));
         cwrap.deleteCourse(courseName);
     }
 
+    public void deleteAssignment(View view) {
+        Spinner s = (Spinner) findViewById(R.id.Assignment_Spinner);
+        String assignmentName = s.getSelectedItem().toString();
+        cwrap.deleteAssignment(assignmentName);
+    }
 
     public void launchDone(View view) {
         Intent sendNewWrapper = new Intent(this, HomePage.class);
@@ -41,5 +51,6 @@ public class DeletePage extends AppCompatActivity {
         sendNewWrapper.putExtra("CourseWrap", cwrap); // Passing course class from this page to home page ...
         startActivity(sendNewWrapper);
     }
+
 }
 

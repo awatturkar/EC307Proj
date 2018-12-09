@@ -91,6 +91,28 @@ public class CourseWrapper implements Serializable {
             }
         }
     }
+
+    // this function might not work
+    public void deleteAssignment(String assignmentName) {
+        String courseName= "";
+        for(int i = 0; i < this.allCourses.size(); i++) {
+            if(this.allInstances.elementAt(i).name.equals(assignmentName)) {
+                courseName = this.allInstances.elementAt(i).courseName;
+                this.allInstances.remove(i);
+                break; // remove one assignment at a time
+            }
+        }
+
+        for(int i = 0; i < this.allCourses.size(); i++) {
+            if(this.allCourses.elementAt(i).name.equals(courseName)) {
+                for(int j = 0; j < this.allCourses.elementAt(i).classTimes.size(); j++) {
+                    this.allCourses.elementAt(i).classTimes.remove(j);
+                    break;
+                }
+            }
+        }
+    }
+
      // for deleting hws, exams, lab reports
     public void deleteInstance(String instName) {
 
