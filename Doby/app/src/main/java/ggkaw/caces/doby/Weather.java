@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.concurrent.ExecutionException;
 
@@ -88,6 +89,7 @@ public class Weather extends AppCompatActivity {
 
 
         }catch(StringIndexOutOfBoundsException e){
+            Toast.makeText(this,"Error: Zipcode not found", Toast.LENGTH_LONG).show();
 
         }
     }
