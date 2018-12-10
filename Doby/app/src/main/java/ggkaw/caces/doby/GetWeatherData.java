@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GetWeatherData extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
@@ -51,9 +53,44 @@ public class GetWeatherData extends AsyncTask<String, Void, String> {
         String idCode = Raw_API_String.substring(Raw_API_String.indexOf("id")+4, Raw_API_String.indexOf("main")-2);
         return idCode;
     }
+    public static final String getWeatherInfo(String Raw_API_String){
+        String formattedString ="Id:" +
+                Raw_API_String.substring(Raw_API_String.indexOf("id")+4,
+                        Raw_API_String.indexOf("main")-2)
+                + " Type:"+ Raw_API_String.substring(Raw_API_String.indexOf("main")+7,
+                Raw_API_String.indexOf("description")-3) + " Description:" +
+                Raw_API_String.substring(Raw_API_String.indexOf("description")+14,
+                Raw_API_String.indexOf("icon")-3);
+        return formattedString;
+    }
+
+    public static final String getTempertaureInfo(String Raw_API_String){
+
+        double formatTemperature = Double.parseDouble(Raw_API_String.substring(Raw_API_String.indexOf("temp")+6,
+                Raw_API_String.indexOf("pressure")-2));
+        formatTemperature = (formatTemperature-273)*(9/5) + 32;
+        String tempinF = String.format("%.2f", formatTemperature);
+        String formattedString ="Current_Temperature:" +
+                tempinF;
+//                + " Low:"+ Raw_API_String.substring(Raw_API_String.indexOf("temp_min")+10,
+//                Raw_API_String.indexOf("temp_max")-2) + " High:" +
+//                Raw_API_String.substring(Raw_API_String.indexOf("temp_max")+10,
+//                        Raw_API_String.indexOf("wind")-3);
+        return formattedString;
+    }
+
+    public static final String getWeatherLocation(String Raw_API_String){
+        String cityName = Raw_API_String.substring(Raw_API_String.indexOf("name")+5,Raw_API_String.indexOf("cod")-3);
+        return cityName;
+
+    }
     public static final String getAPIDataString(String Raw_API_String){
         String outString;
+        double tempNum = Double.parseDouble(Raw_API_String.substring(Raw_API_String.indexOf("temp")+6,
+                Raw_API_String.indexOf("pressure")-2));
         String idCode = Raw_API_String.substring(Raw_API_String.indexOf("id")+4, Raw_API_String.indexOf("main")-2);
+        String humidity = Raw_API_String.substring(Raw_API_String.indexOf("humidity")+10,Raw_API_String.indexOf("temp_min")-2);
+
         String weatherparta = Raw_API_String.substring(Raw_API_String.indexOf("{"), Raw_API_String.indexOf("description\""));
         Raw_API_String = Raw_API_String.replace(weatherparta, "");
         Raw_API_String = Raw_API_String.replace("description\"","");
@@ -71,7 +108,6 @@ public class GetWeatherData extends AsyncTask<String, Void, String> {
         weatherparta = Raw_API_String.substring(Raw_API_String.indexOf(":"), Raw_API_String.indexOf(","));
         Raw_API_String = Raw_API_String.replace(weatherparta, "");
         weatherparta = weatherparta.replace(":", "");
-        String tempString = weatherparta;
         weatherparta = Raw_API_String.substring(Raw_API_String.indexOf(","), Raw_API_String.indexOf(":"));
         Raw_API_String = Raw_API_String.replace(weatherparta, "");
         weatherparta = Raw_API_String.substring(Raw_API_String.indexOf(":"), Raw_API_String.indexOf("\""));
@@ -82,10 +118,9 @@ public class GetWeatherData extends AsyncTask<String, Void, String> {
         weatherparta = weatherparta.replace(":", "");
         String cityName = Raw_API_String.substring(Raw_API_String.indexOf("name")+5,Raw_API_String.indexOf("cod")-3);
 
-        String humidity = weatherparta;
-        double tempNum = Double.parseDouble(tempString);
+
         tempNum = (tempNum-273)*(9/5) + 32;
-        tempString = String.format("%.2f", tempNum);
+        String tempString = String.format("%.2f", tempNum);
         outString = "Location: " + cityName + "\nForecast: " + forecast +"\nTemperature: " + tempString + "\u00b0" + "F" + "\nHumidity: " + humidity + "%";
         if(tempNum < 45) {
             outString = outString + "\n\nBrrr. It's cold outside. You should probably wear a jacket.";
