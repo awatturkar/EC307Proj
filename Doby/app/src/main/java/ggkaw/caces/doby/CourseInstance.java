@@ -169,7 +169,14 @@ public class CourseInstance implements Serializable {
         // if one of the first three, don't need to print name, otherwise do
         String s;
         if(this.type.equals("Lecture") || this.type.equals("Lab") || this.type.equals("Discussion")) {
-            s = this.courseName + " " + this.type + ": " + convertToHH(this.startTime.get(this.startTime.HOUR)) + ":" + this.startTime.get(this.startTime.MINUTE) + amOrpm(this.startTime) + "\n";
+            int startTime = this.startTime.get(this.startTime.MINUTE);
+            if(startTime < 10) {
+                String firstDig = startTime+ "";
+                String minVal = "0" + firstDig;
+                s = this.courseName + " " + this.type + ": " + convertToHH(this.startTime.get(this.startTime.HOUR)) + ":" + minVal + amOrpm(this.startTime) + "\n";
+            } else {
+                s = this.courseName + " " + this.type + ": " + convertToHH(this.startTime.get(this.startTime.HOUR)) + ":" + this.startTime.get(this.startTime.MINUTE) + amOrpm(this.startTime) + "\n";
+            }
         } else {
             s = this.courseName + " " + this.type + ": " + this.name+ "\n";
         }
