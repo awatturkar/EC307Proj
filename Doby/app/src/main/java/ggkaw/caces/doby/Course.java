@@ -50,6 +50,27 @@ public class Course implements Serializable {
 
     }
 
+    public boolean hasDuplicate(String startDate, String classDay, String classType, String startTime, String endTime, String APStart, String APEnd, String name) {
+        // check if same instance already exists
+        Calendar sTime = CourseInstance.settingTime(startDate, startTime, APStart);
+        // definitely does not work yet!
+        if(classType.equals("Lecture") || classType.equals("Lab") || classType.equals("Discussion")) {
+            for(int i = 0; i < classTimes.size(); i++) {
+                if(classDay.equals(classTimes.elementAt(i).day) && sTime.equals(classTimes.elementAt(i).startTime)) {
+                    return true;
+                }
+            }
+        }
+        if(classType.equals("Assignment") || classType.equals("Lab Report") || classType.equals("Exam")) {
+            for(int i = 0; i < classTimes.size(); i++) {
+                if(name.equals(classTimes.elementAt(i).name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static Vector<String> findDates(String startDate, String endDate, String dayOfWeek) {
         int dOW = CourseInstance.dayOfWeekInt(dayOfWeek);
         Vector<String> stringDates = new Vector<String>();

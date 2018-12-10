@@ -78,26 +78,34 @@ public class NewClassPage extends AppCompatActivity {
         String startTime =  startTimeText.getText().toString();
         String endTime =  endTimeText.getText().toString();
 
+        EditText startDateText = (EditText) findViewById(R.id.Start_Date_Edit);
+        String sstartDate = startDateText.getText().toString();
+
         // check if start time and end time are valid
         try {
             if(courseExists) {
-                if(isValidTime(startTime, endTime)) {
-                    addInstances(createdCourse, classDay, classType, startTime,endTime, APStart, APEnd);
+                if(isValidTime(startTime, endTime, APStart, APEnd)) {
+                    // check if no duplicate instances
+                    if(!createdCourse.hasDuplicate(sstartDate, classDay, classType, startTime, endTime, APStart, APEnd, "-")) {
+                        addInstances(createdCourse, classDay, classType, startTime, endTime, APStart, APEnd);
 
-                    Toast.makeText(this, "Lecture/Lab Added", Toast.LENGTH_LONG);
+                        Toast.makeText(this, "Lecture/Lab Added", Toast.LENGTH_LONG);
 
-                    existingSections.append(className.getText().toString());
-                    existingSections.append(" ");
-                    existingSections.append(classTypeSpin.getSelectedItem().toString());
-                    existingSections.append(" ");
-                    existingSections.append(classDaySpin.getSelectedItem().toString());
-                    existingSections.append(" ");
-                    existingSections.append(startTime);
-                    existingSections.append(AMPMStart.getSelectedItem().toString());
-                    existingSections.append(" to ");
-                    existingSections.append(endTime);
-                    existingSections.append(AMPMEnd.getSelectedItem().toString());
-                    existingSections.append("\n-------------\n");
+                        existingSections.append(className.getText().toString());
+                        existingSections.append(" ");
+                        existingSections.append(classTypeSpin.getSelectedItem().toString());
+                        existingSections.append(" ");
+                        existingSections.append(classDaySpin.getSelectedItem().toString());
+                        existingSections.append(" ");
+                        existingSections.append(startTime);
+                        existingSections.append(AMPMStart.getSelectedItem().toString());
+                        existingSections.append(" to ");
+                        existingSections.append(endTime);
+                        existingSections.append(AMPMEnd.getSelectedItem().toString());
+                        existingSections.append("\n-------------\n");
+                    } else {
+                        throw new Exception("Duplicate instances!");
+                    }
 
                 } else {
                     throw new ArithmeticException("Invalid time");
@@ -110,6 +118,8 @@ public class NewClassPage extends AppCompatActivity {
             Toast.makeText(this, "Please enter valid times!", Toast.LENGTH_LONG).show();
         } catch (NullPointerException n) {
             Toast.makeText(this, "Please set a class before adding times!", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "You already added this section!", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -125,7 +135,7 @@ public class NewClassPage extends AppCompatActivity {
         int sDay = Integer.parseInt(smdy[1]);
         int sYear = Integer.parseInt(smdy[2]);
 
-        String[] emdy = startDate.split("/");
+        String[] emdy = endDate.split("/");
         int eMonth = Integer.parseInt(emdy[0]);
         int eDay = Integer.parseInt(emdy[1]);
         int eYear = Integer.parseInt(emdy[2]);
@@ -148,7 +158,10 @@ public class NewClassPage extends AppCompatActivity {
         return startValid && endValid;
     }
 
-    private boolean isValidTime(String sTime, String eTime) {
+    private boolean isValidTime(String sTime, String eTime, String sAP, String eAP) {
+        if(eAP.equals("AM") && sAP.equals("PM")) {
+            return false;
+        }
         if(!sTime.contains(":") || !eTime.contains(":")) {
             return false;
         }
@@ -157,12 +170,20 @@ public class NewClassPage extends AppCompatActivity {
         int sHour = Integer.parseInt(sHM[0]);
         int sMin = Integer.parseInt(sHM[1]);
 
-        String[] eHM = sTime.split(":");
-        int eHour = Integer.parseInt(sHM[0]);
-        int eMin = Integer.parseInt(sHM[1]);
+        String[] eHM = eTime.split(":");
+        int eHour = Integer.parseInt(eHM[0]);
+        int eMin = Integer.parseInt(eHM[1]);
 
         if(sHour > 12 || sHour < 1 || eHour > 12 || eHour < 1 || sMin < 0 || sMin > 59 || eMin < 0 || eMin >59) {
             return false;
+        }
+
+        if(sAP.equals(eAP) && sHour > eHour) {
+            return false;
+        } else if(sAP.equals(eAP) && sHour == eHour) {
+            if(sMin > eMin) {
+                return false;
+            }
         }
 
         return true;

@@ -86,7 +86,7 @@ public class CourseWrapper implements Serializable {
         }
         // also need to remove all course instances with the passed in coursename (go backward to avoid skips)
         for(int i = this.allInstances.size()-1; i >= 0; i--) {
-            if(this.allInstances.elementAt(i).name.equals(courseName)) {
+            if(this.allInstances.elementAt(i).courseName.equals(courseName)) {
                 this.allInstances.remove(i);
             }
         }

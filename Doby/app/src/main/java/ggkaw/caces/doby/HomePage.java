@@ -62,12 +62,13 @@ public class HomePage extends AppCompatActivity {
             }
         }
 
-        popSched();
-
         // PUT THESE IN THE GUI TO!!
         if(cwrap.allCourses.size() != 0) {
             save(cwrap);
         }
+
+        popSched();
+
     }// end of onCreate
 
     public void popSched() {
@@ -342,5 +343,12 @@ public class HomePage extends AppCompatActivity {
         DeleteIntent.putExtra("Assignment Names", stringAssignmentNames);
 
         startActivity(DeleteIntent);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void onDestroy() {
+        save(cwrap);
+        super.onDestroy();
+
     }
 }
