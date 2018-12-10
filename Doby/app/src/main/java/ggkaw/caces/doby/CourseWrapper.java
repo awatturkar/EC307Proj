@@ -47,7 +47,7 @@ public class CourseWrapper implements Serializable {
     public void addCourseInstances(Vector<CourseInstance> newInstances) {
         for (int i = 0; i < newInstances.size(); i++) {
             for(int j = 0; j < this.allCourses.size(); j++) {
-                if(this.allCourses.elementAt(j).name == newInstances.elementAt(i).name) {
+                if(this.allCourses.elementAt(j).name == newInstances.elementAt(i).courseName) {
                     this.allCourses.elementAt(j).addInstance(newInstances.elementAt(i));
                     break; // will not have the same name as multiple courses
                 }
@@ -95,7 +95,7 @@ public class CourseWrapper implements Serializable {
     // this function might not work
     public void deleteAssignment(String assignmentName) {
         String courseName= "";
-        for(int i = 0; i < this.allCourses.size(); i++) {
+        for(int i = 0; i < this.allInstances.size(); i++) {
             if(this.allInstances.elementAt(i).name.equals(assignmentName)) {
                 courseName = this.allInstances.elementAt(i).courseName;
                 this.allInstances.remove(i);
@@ -106,7 +106,9 @@ public class CourseWrapper implements Serializable {
         for(int i = 0; i < this.allCourses.size(); i++) {
             if(this.allCourses.elementAt(i).name.equals(courseName)) {
                 for(int j = 0; j < this.allCourses.elementAt(i).classTimes.size(); j++) {
-                    this.allCourses.elementAt(i).classTimes.remove(j);
+                    if(this.allCourses.elementAt(i).classTimes.elementAt(j).name.equals(assignmentName)) {
+                        this.allCourses.elementAt(i).classTimes.remove(j);
+                    }
                     break;
                 }
             }

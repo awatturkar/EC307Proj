@@ -55,7 +55,7 @@ public class HomePage extends AppCompatActivity {
 
             }
             else { // coming from another page
-                cwrap = (CourseWrapper)intent.getSerializableExtra("CourseWrap");
+                cwrap = new CourseWrapper((CourseWrapper) getIntent().getSerializableExtra("CourseWrap"));
             }
         } catch (Throwable t) {
             if(cwrap == null) {
