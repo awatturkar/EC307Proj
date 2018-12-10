@@ -1,6 +1,7 @@
 package ggkaw.caces.doby;
 
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +18,8 @@ public class Weather extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
-//        ImageView Icon = (ImageView) findViewById(R.id.weather_Icon);
-//        Icon.setVisibility(View.INVISIBLE);
+        ImageView Im = (ImageView) findViewById(R.id.weather_Icon);
+        Im.setVisibility(View.INVISIBLE);
 
     }
     public void zipCodeSet(View view) throws ExecutionException, InterruptedException {
@@ -36,35 +37,29 @@ public class Weather extends AppCompatActivity {
         switch(weatherID.charAt(0)){
             case '2': mDrawable = getResources().getDrawable(R.drawable.d11);
                 Icon.setImageDrawable(mDrawable);
-//                Icon.setVisibility(View.VISIBLE);
                 break;
             case '3': mDrawable = getResources().getDrawable(R.drawable.d09);
                 Icon.setImageDrawable(mDrawable);
-//                Icon.setVisibility(View.VISIBLE);
                 break;
             case '5': mDrawable = getResources().getDrawable(R.drawable.d10);
                 Icon.setImageDrawable(mDrawable);
-//                Icon.setVisibility(View.VISIBLE);
                 break;
             case '6': mDrawable = getResources().getDrawable(R.drawable.d13);
                 Icon.setImageDrawable(mDrawable);
-//                Icon.setVisibility(View.VISIBLE);
                 break;
             case '7': mDrawable = getResources().getDrawable(R.drawable.d50);
                 Icon.setImageDrawable(mDrawable);
-//                Icon.setVisibility(View.VISIBLE);
                 break;
         }
         switch(weatherID.charAt(2)){
             case '1': mDrawable = getResources().getDrawable(R.drawable.d02);
                 Icon.setImageDrawable(mDrawable);
-//                Icon.setVisibility(View.VISIBLE);
                 break;
             case '2': mDrawable = getResources().getDrawable(R.drawable.d03);
                 Icon.setImageDrawable(mDrawable);
-//                Icon.setVisibility(View.VISIBLE);
                 break;
         }
+        Icon.setVisibility(View.VISIBLE);
 
 
     }
