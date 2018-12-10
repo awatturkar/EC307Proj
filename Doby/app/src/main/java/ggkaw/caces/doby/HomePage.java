@@ -63,6 +63,15 @@ public class HomePage extends AppCompatActivity {
             }
         }
 
+        popSched();
+
+        // PUT THESE IN THE GUI TO!!
+        if(cwrap.allCourses.size() != 0) {
+            save(cwrap);
+        }
+    }// end of onCreate
+
+    public void popSched() {
         // populate 3-day schedule
         Calendar day = Calendar.getInstance();
         // convert to string
@@ -91,12 +100,7 @@ public class HomePage extends AppCompatActivity {
         d1.setText(todayStr);
         d2.setText(tomorrowStr);
         d3.setText(nextDayStr);
-
-        // PUT THESE IN THE GUI TO!!
-        if(cwrap.allCourses.size() != 0) {
-            save(cwrap);
-        }
-    }// end of onCreate
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void save(CourseWrapper course) {
