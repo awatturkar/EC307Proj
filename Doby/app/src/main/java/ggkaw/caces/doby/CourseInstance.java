@@ -27,6 +27,16 @@ public class CourseInstance implements Serializable {
         saveString = ":Instance:"+courseName+"$"+name+"$"+this.day+"$"+date+"$"+startTime+"$"+endTime+"$"+startap+"$"+endap+"$"+type;
     }
 
+    public CourseInstance(String courseName, String name, String date, String startTime, String endTime, String startap, String endap, String type, int p) {
+        this.courseName = courseName;
+        this.name = ""; // repeating instances do not need a name
+        this.startTime = settingTime(date, startTime, startap);
+        this.endTime = settingTime(date, endTime, endap);
+        this.type = type;
+        this.day = dayOfWeekString(this.startTime.get(this.startTime.DAY_OF_WEEK));
+        saveString = ":Instance:"+courseName+"$"+name+"$"+this.day+"$"+date+"$"+startTime+"$"+endTime+"$"+startap+"$"+endap+"$"+type;
+    }
+
     //Added name parameter for uniform loading function
     public CourseInstance(String courseName, String name, String day, String date, String startTime, String endTime, String startap, String endap, String type) {
         this.courseName = courseName;
@@ -176,6 +186,15 @@ public class CourseInstance implements Serializable {
                 s = this.courseName + " " + this.type + ": " + convertToHH(this.startTime.get(this.startTime.HOUR)) + ":" + minVal + amOrpm(this.startTime) + "\n";
             } else {
                 s = this.courseName + " " + this.type + ": " + convertToHH(this.startTime.get(this.startTime.HOUR)) + ":" + this.startTime.get(this.startTime.MINUTE) + amOrpm(this.startTime) + "\n";
+            }
+        } else if (this.type.equals("Homework time")) {
+            int startTime = this.startTime.get(this.startTime.MINUTE);
+            if(startTime < 10) {
+                String firstDig = startTime+ "";
+                String minVal = "0" + firstDig;
+                s = this.name + ": " + convertToHH(this.startTime.get(this.startTime.HOUR)) + ":" + minVal + amOrpm(this.startTime) + "\n";
+            } else {
+                s = this.name +  ": " + convertToHH(this.startTime.get(this.startTime.HOUR)) + ":" + this.startTime.get(this.startTime.MINUTE) + amOrpm(this.startTime) + "\n";
             }
         } else {
             s = this.courseName + " " + this.type + ": " + this.name+ "\n";

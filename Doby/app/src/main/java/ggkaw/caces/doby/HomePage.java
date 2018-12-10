@@ -215,7 +215,7 @@ public class HomePage extends AppCompatActivity {
 
         Vector<String> courseNames = new Vector<String>();
 
-        for(int i = 0; i < cwrap.allCourses.size(); i++) {
+        for(int i = 1; i < cwrap.allCourses.size(); i++) {
             courseNames.add(cwrap.allCourses.elementAt(i).name);
         }
 
@@ -326,7 +326,7 @@ public class HomePage extends AppCompatActivity {
 
         Vector<String> courseNames = new Vector<String>();
         // need to pass vector of course instance names
-        for(int i = 0; i < cwrap.allCourses.size(); i++) {
+        for(int i = 1; i < cwrap.allCourses.size(); i++) {
             courseNames.add(cwrap.allCourses.elementAt(i).name);
         }
         String[] stringNames = courseNames.toArray(new String[courseNames.size()]);
@@ -353,4 +353,7 @@ public class HomePage extends AppCompatActivity {
     }
 
 
+    public void PlanHWTimePressed(View view) {
+
+    }
 }

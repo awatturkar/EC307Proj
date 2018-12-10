@@ -69,6 +69,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="4dp"
         android:visibility="invisible"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
         app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline21"
