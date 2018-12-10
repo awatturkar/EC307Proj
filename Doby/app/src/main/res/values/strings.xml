@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Home</string>
+    <string name="app_name">Robin</string>
     <string name="New_Class_Butt">New Class</string>
     <string name="New_Due_Date_Butt">New Due Date</string>
     <string name="Class_Name_Edit">Class Name</string>
@@ -39,9 +39,10 @@
     <string name="right_butt"><![CDATA[>]]></string>
     <string name="left_butt"><![CDATA[<]]></string>
     <string name="delete_butt">Delete...</string>
-    <string name="addHW_butt">Add HW</string>
+    <string name="addHW_butt">Add Study Time</string>
     <string name="delete_course_butt">Delete Course</string>
     <string name="done_butt">Done</string>
+    <string name="Repeat_Check_Box">Repeat Weekly</string>
     <string-array name="Assignment_Types">
         <item>Assignment</item>
         <item>Exam</item>

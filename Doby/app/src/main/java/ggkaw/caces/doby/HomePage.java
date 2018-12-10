@@ -23,14 +23,13 @@ import java.util.Vector;
 
 public class HomePage extends AppCompatActivity {
     private static final String FILE_NAME = "saved_data.txt";
+    public CourseWrapper cwrap;
     String today;
     String tomorrow;
     String nextDay;
     String todaySched;
     String tomorrowSched;
     String nextDaySched;
-
-    public CourseWrapper cwrap;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -72,6 +71,7 @@ public class HomePage extends AppCompatActivity {
     }// end of onCreate
 
     public void popSched() {
+
         // populate 3-day schedule
         Calendar day = Calendar.getInstance();
         // convert to string

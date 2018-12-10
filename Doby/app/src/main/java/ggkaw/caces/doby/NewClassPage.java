@@ -23,11 +23,42 @@ public class NewClassPage extends AppCompatActivity {
 
     // declare the instance of Course class you will use
     Course createdCourse;
+    boolean courseExists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_class_page);
+        courseExists = false;
+    }
+
+    public void SetNewClass(View view) {
+        // throw error if you have already added the class
+
+        EditText startDateText = (EditText) findViewById(R.id.Start_Date_Edit);
+        EditText endDateText = (EditText) findViewById(R.id.End_Date_Edit);
+        EditText multiplier = (EditText) findViewById(R.id.multiplier);
+        EditText courseName = (EditText) findViewById(R.id.Class_Name_Edit);
+
+        String sstartDate = startDateText.getText().toString();
+        String sendDate = endDateText.getText().toString();
+
+        try {
+            if(isValidDate(sstartDate, sendDate)) {
+
+                String scourseName = courseName.getText().toString();
+                double mult = Double.parseDouble(multiplier.getText().toString());
+
+                // check if start date < end date
+
+                createdCourse = new Course(scourseName, mult, sstartDate, sendDate); // CREATE NEW CONSTRUCTOR w/ 2 args
+                courseExists = true;
+            } else {
+                throw new ArithmeticException("Invalid date");
+            }
+        } catch (ArithmeticException a) {
+            Toast.makeText(this, "Please enter valid dates!", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void addAndStore(View view) {
@@ -47,47 +78,97 @@ public class NewClassPage extends AppCompatActivity {
         String startTime =  startTimeText.getText().toString();
         String endTime =  endTimeText.getText().toString();
 
-        addInstances(createdCourse, classDay, classType, startTime,endTime, APStart, APEnd);
+        // check if start time and end time are valid
+        try {
+            if(courseExists) {
+                if(isValidTime(startTime, endTime)) {
+                    addInstances(createdCourse, classDay, classType, startTime,endTime, APStart, APEnd);
 
-        Toast.makeText(this, "Lecture/Lab Added", Toast.LENGTH_LONG);
-//        String
+                    Toast.makeText(this, "Lecture/Lab Added", Toast.LENGTH_LONG);
 
+                    existingSections.append(className.getText().toString());
+                    existingSections.append(" ");
+                    existingSections.append(classTypeSpin.getSelectedItem().toString());
+                    existingSections.append(" ");
+                    existingSections.append(classDaySpin.getSelectedItem().toString());
+                    existingSections.append(" ");
+                    existingSections.append(startTime);
+                    existingSections.append(AMPMStart.getSelectedItem().toString());
+                    existingSections.append(" to ");
+                    existingSections.append(endTime);
+                    existingSections.append(AMPMEnd.getSelectedItem().toString());
+                    existingSections.append("\n-------------\n");
 
+                } else {
+                    throw new ArithmeticException("Invalid time");
+                }
+            } else {
+                throw new NullPointerException("No course");
+            }
 
-        // create new course instance and add it to the Course class
-        //createdCourse.addInstance(CourseInstance());
-
-
-        existingSections.append(className.getText().toString());
-        existingSections.append(" ");
-        existingSections.append(classTypeSpin.getSelectedItem().toString());
-        existingSections.append(" ");
-        existingSections.append(classDaySpin.getSelectedItem().toString());
-        existingSections.append(" ");
-        existingSections.append(startTime);
-        existingSections.append(AMPMStart.getSelectedItem().toString());
-        existingSections.append(" to ");
-        existingSections.append(endTime);
-        existingSections.append(AMPMEnd.getSelectedItem().toString());
-        existingSections.append("\n-------------\n");
+        } catch (ArithmeticException a){
+            Toast.makeText(this, "Please enter valid times!", Toast.LENGTH_LONG).show();
+        } catch (NullPointerException n) {
+            Toast.makeText(this, "Please set a class before adding times!", Toast.LENGTH_LONG).show();
+        }
 
     }
 
-    public void SetNewClass(View view) {
-        // throw error if you have already added the class
+    private boolean isValidDate(String startDate, String endDate) {
+        // check if start and end date are in mm/dd/yyyy format
+        if(!startDate.contains("/") || !endDate.contains("/")) {
+            return false;
+        }
 
-        EditText startDateText = (EditText) findViewById(R.id.Start_Date_Edit);
-        EditText endDateText = (EditText) findViewById(R.id.End_Date_Edit);
-        EditText multiplier = (EditText) findViewById(R.id.multiplier);
-        EditText courseName = (EditText) findViewById(R.id.Class_Name_Edit);
+        String[] smdy = startDate.split("/");
+        int sMonth = Integer.parseInt(smdy[0]);
+        int sDay = Integer.parseInt(smdy[1]);
+        int sYear = Integer.parseInt(smdy[2]);
 
-        String sstartDate = startDateText.getText().toString();
-        String sendDate = endDateText.getText().toString();
-        String scourseName = courseName.getText().toString();
-        double mult = Double.parseDouble(multiplier.getText().toString());
+        String[] emdy = startDate.split("/");
+        int eMonth = Integer.parseInt(emdy[0]);
+        int eDay = Integer.parseInt(emdy[1]);
+        int eYear = Integer.parseInt(emdy[2]);
 
-        createdCourse = new Course(scourseName, mult, sstartDate, sendDate); // CREATE NEW CONSTRUCTOR w/ 2 args
+        if(eYear < sYear) {
+            return false;
+        } else if(eYear == sYear) {
+            if(eMonth < sMonth) {
+                return false;
+            } else if(eMonth == sMonth) {
+                if(eDay <= sDay) {
+                    return false;
+                }
+            }
+        }
+
+        boolean startValid = GFG.isValidDate(sDay, sMonth, sYear);
+        boolean endValid = GFG.isValidDate(eDay, eMonth, eYear);
+
+        return startValid && endValid;
     }
+
+    private boolean isValidTime(String sTime, String eTime) {
+        if(!sTime.contains(":") || !eTime.contains(":")) {
+            return false;
+        }
+
+        String[] sHM = sTime.split(":");
+        int sHour = Integer.parseInt(sHM[0]);
+        int sMin = Integer.parseInt(sHM[1]);
+
+        String[] eHM = sTime.split(":");
+        int eHour = Integer.parseInt(sHM[0]);
+        int eMin = Integer.parseInt(sHM[1]);
+
+        if(sHour > 12 || sHour < 1 || eHour > 12 || eHour < 1 || sMin < 0 || sMin > 59 || eMin < 0 || eMin >59) {
+            return false;
+        }
+
+        return true;
+    }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void launchDoneTask(View view) {
