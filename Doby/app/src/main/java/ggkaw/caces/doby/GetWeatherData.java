@@ -76,13 +76,13 @@ public class GetWeatherData extends AsyncTask<String, Void, String> {
         Raw_API_String = Raw_API_String.replace(weatherparta, "");
         weatherparta = Raw_API_String.substring(Raw_API_String.indexOf(":"), Raw_API_String.indexOf(","));
         weatherparta = weatherparta.replace(":", "");
-        String cityName = Raw_API_String.substring(Raw_API_String.indexOf(("name\"")+5),"\"");
+        String cityName = Raw_API_String.substring(Raw_API_String.indexOf("name")+5,Raw_API_String.indexOf("cod")-3);
 
         String humidity = weatherparta;
         double tempNum = Double.parseDouble(tempString);
         tempNum = (tempNum-273)*(9/5) + 32;
         tempString = String.format("%.2f", tempNum);
-        outString = "Forecast: " + forecast +"\nTemperature: " + tempString + "\u00b0" + "F" + "\nHumidity: " + humidity + "%"+"\nLocation: " + cityName ;
+        outString = "Location: " + cityName + "\nForecast: " + forecast +"\nTemperature: " + tempString + "\u00b0" + "F" + "\nHumidity: " + humidity + "%";
         return outString;
     }
 
