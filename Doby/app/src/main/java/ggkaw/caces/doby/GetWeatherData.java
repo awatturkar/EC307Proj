@@ -47,9 +47,13 @@ public class GetWeatherData extends AsyncTask<String, Void, String> {
 
 
     }
-
+    public static final String getWeatherID(String Raw_API_String){
+        String idCode = Raw_API_String.substring(Raw_API_String.indexOf("id")+4, Raw_API_String.indexOf("main")-2);
+        return idCode;
+    }
     public static final String getAPIDataString(String Raw_API_String){
         String outString;
+        String idCode = Raw_API_String.substring(Raw_API_String.indexOf("id")+4, Raw_API_String.indexOf("main")-2);
         String weatherparta = Raw_API_String.substring(Raw_API_String.indexOf("{"), Raw_API_String.indexOf("description\""));
         Raw_API_String = Raw_API_String.replace(weatherparta, "");
         Raw_API_String = Raw_API_String.replace("description\"","");
@@ -83,6 +87,20 @@ public class GetWeatherData extends AsyncTask<String, Void, String> {
         tempNum = (tempNum-273)*(9/5) + 32;
         tempString = String.format("%.2f", tempNum);
         outString = "Location: " + cityName + "\nForecast: " + forecast +"\nTemperature: " + tempString + "\u00b0" + "F" + "\nHumidity: " + humidity + "%";
+        if(tempNum < 45) {
+            outString = outString + "\n\nBrrr. It's cold outside. You should probably wear a jacket.";
+        }
+        if(idCode.charAt(0) == '2' || idCode.charAt(0) == '3' || idCode.charAt(0) == '5'){
+            outString = outString + "\n\nBetter wear some rain boots.";
+        }
+
+        if(idCode.charAt(0) == '6') {
+            outString = outString + "\n\nIt's snowing! Get your snowboots on and dress warmly!";
+        }
+
+        if(idCode.charAt(0) == '8'){
+            outString = outString + "\n\nClear Skies!";
+        }
         return outString;
     }
 

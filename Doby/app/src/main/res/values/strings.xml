@@ -44,6 +44,8 @@
     <string name="done_butt">Done</string>
     <string name="Repeat_Check_Box">Repeat Weekly</string>
     <string name="Weather_butt">Weather</string>
+    <string name="start_time_HW">Start Time</string>
+    <string name="end_time_HW">End Time</string>
     <string-array name="Assignment_Types">
         <item>Assignment</item>
         <item>Exam</item>

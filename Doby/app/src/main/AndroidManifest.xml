@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:name=".NewClassPage"
-            android:label="New Class"
+            android:label="Add New Class"
             android:parentActivityName=".HomePage">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -28,7 +28,7 @@
         </activity>
         <activity
             android:name=".AssignmentPage"
-            android:label="Assignment Page"
+            android:label="Add Major Assignment"
             android:parentActivityName=".HomePage">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -44,7 +44,7 @@
         </activity>
         <activity
             android:name=".AddHomeworkTime"
-            android:label="Add Homework"
+            android:label="Add Study Time"
             android:parentActivityName=".HomePage">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -13,8 +13,10 @@ public class AddHomeworkTime extends AppCompatActivity {
     }
 
     public void LaunchHWAssignmentTask(View view) {
+
     }
 
     public void LaunchHWDoneTask(View view) {
+
     }
 }
