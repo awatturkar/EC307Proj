@@ -2,23 +2,19 @@ package ggkaw.caces.doby;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Calendar;
-import java.util.Scanner;
 import java.util.Vector;
 
 public class HomePage extends AppCompatActivity {
@@ -345,10 +341,16 @@ public class HomePage extends AppCompatActivity {
         startActivity(DeleteIntent);
     }
 
+    public void LaunchWeatherPage(View view) {
+    Intent weatherIntent = new Intent(this, Weather.class);
+    startActivity(weatherIntent);
+    }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void onDestroy() {
         save(cwrap);
         super.onDestroy();
 
     }
+
+
 }
