@@ -24,7 +24,7 @@ import java.util.Vector;
 
 public class AssignmentPage extends AppCompatActivity {
 
-    Vector<CourseInstance> newInstances = new Vector<CourseInstance>();
+    Vector<CourseInstance> newInstances;
     String selectedDate;
 
     @Override
@@ -36,6 +36,13 @@ public class AssignmentPage extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, courseNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
+
+        newInstances = new Vector<CourseInstance>();
+
+        // set selected date to current date
+        Calendar day = Calendar.getInstance();
+        // convert to string
+        selectedDate = CourseInstance.calDateToString(day);
 
         CalendarView mCalendarView = (CalendarView) findViewById(R.id.Calendar_View);
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -59,6 +66,8 @@ public class AssignmentPage extends AppCompatActivity {
         String sType = type.getSelectedItem().toString();
         String sAssignmentName = assignmentName.getText().toString();
         String sCourseName = courseName.getSelectedItem().toString();
+
+        //String selDate = selectedDate.toString();
 
         newInstances.add(new CourseInstance(sCourseName, sAssignmentName, selectedDate, sType));
     }

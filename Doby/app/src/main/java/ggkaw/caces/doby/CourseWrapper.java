@@ -47,8 +47,8 @@ public class CourseWrapper implements Serializable {
     public void addCourseInstances(Vector<CourseInstance> newInstances) {
         for (int i = 0; i < newInstances.size(); i++) {
             for(int j = 0; j < this.allCourses.size(); j++) {
-                if(this.allCourses.elementAt(i).name == newInstances.elementAt(j).name) {
-                    this.allCourses.elementAt(i).addInstance(newInstances.elementAt(j));
+                if(this.allCourses.elementAt(j).name == newInstances.elementAt(i).name) {
+                    this.allCourses.elementAt(j).addInstance(newInstances.elementAt(i));
                     break; // will not have the same name as multiple courses
                 }
             }

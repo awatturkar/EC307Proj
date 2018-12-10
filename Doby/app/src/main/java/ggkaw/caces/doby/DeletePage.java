@@ -10,19 +10,21 @@ import android.widget.Spinner;
 
 public class DeletePage extends AppCompatActivity {
 
-    CourseWrapper cwrap = new CourseWrapper((CourseWrapper) getIntent().getSerializableExtra("Course Wrapper"));
-
+    CourseWrapper cwrap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_page);
 
-        String[] courseNames = getIntent().getStringArrayExtra("Course Names");
-        Spinner s = (Spinner) findViewById(R.id.course_delete_spin);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, courseNames);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adapter);
+        cwrap = new CourseWrapper((CourseWrapper) getIntent().getSerializableExtra("Course Wrapper"));
 
+        String[] courseNames = getIntent().getStringArrayExtra("Course Names");
+        Spinner s1 = (Spinner) findViewById(R.id.Course_Spinner);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, courseNames);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s1.setAdapter(adapter1);
+
+        //!!!!!!!!! ERRROR LINE 28
         String[] assignmentNames = getIntent().getStringArrayExtra("Assignment Names");
         Spinner s2 = (Spinner) findViewById(R.id.Assignment_Spinner);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, assignmentNames);
@@ -32,7 +34,7 @@ public class DeletePage extends AppCompatActivity {
 
     public void deleteCourse(View view) {
         // get coursename from dropdown and delete it using the delete the delete function
-        Spinner s = (Spinner) findViewById(R.id.course_delete_spin);
+        Spinner s = (Spinner) findViewById(R.id.Course_Spinner);
         String courseName = s.getSelectedItem().toString();
         cwrap.deleteCourse(courseName);
     }

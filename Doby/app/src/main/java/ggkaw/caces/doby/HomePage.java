@@ -324,20 +324,18 @@ public class HomePage extends AppCompatActivity {
         DeleteIntent.putExtra("Course Wrapper", cwrap);
 
         Vector<String> courseNames = new Vector<String>();
-
         // need to pass vector of course instance names
-
         for(int i = 0; i < cwrap.allCourses.size(); i++) {
             courseNames.add(cwrap.allCourses.elementAt(i).name);
         }
+        String[] stringNames = courseNames.toArray(new String[courseNames.size()]);
+
 
         Vector<String> assignmentNames = cwrap.returnAssignments();
-
-        String[] stringNames = courseNames.toArray(new String[courseNames.size()]);
         String[] stringAssignmentNames = assignmentNames.toArray(new String[assignmentNames.size()]);
 
         DeleteIntent.putExtra("Course Names", stringNames);
-        DeleteIntent.putExtra("Assignment names", stringAssignmentNames);
+        DeleteIntent.putExtra("Assignment Names", stringAssignmentNames);
 
         startActivity(DeleteIntent);
     }
