@@ -22,7 +22,20 @@ public class CourseWrapper implements Serializable {
 
     CourseWrapper() {
         this.allCourses = new Vector<Course>();
+        this.allCourses.add(new Course("Homework Times", 1, "1/1/2010", "1/1/3000"));
+        // always first course
         this.allInstances = new Vector<CourseInstance>();
+    }
+
+    CourseWrapper(Vector<CourseInstance> cVec)
+    {
+        // cvec holds homework instances
+        this.allCourses = new Vector<Course>();
+        this.allInstances = new Vector<CourseInstance>();
+        for(int i = 0; i < cVec.size(); i ++)
+        {
+            this.allCourses.elementAt(0).addInstance(cVec.elementAt(i));
+        }
     }
 
     // Copy Constructor
