@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Vector;
 
 public class HomePage extends AppCompatActivity {
-    private static final String FILE_NAME = "saved_data.txt";
+    private static final String FILE_NAME = "saved_data6.txt";
     public CourseWrapper cwrap;
     String today;
     String tomorrow;
@@ -102,10 +102,10 @@ public class HomePage extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void save(CourseWrapper course) {
         String saveText = cwrap.saveCourses();
-        FileOutputStream fos = null;
+        FileOutputStream fos; // =  new FileOutputStream("output", false);;
 
         try {
-            fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+            fos =  new FileOutputStream(FILE_NAME, false);
             fos.write(saveText.getBytes());
             //Toast.makeText(this,"Saved!", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
@@ -129,7 +129,7 @@ public class HomePage extends AppCompatActivity {
         String type = "";
         String current = "";
         int numOfCourses = 0;
-        CourseWrapper courseWrapper = new CourseWrapper();
+        CourseWrapper courseWrapper = new CourseWrapper(1);
 
         FileInputStream fis = null;
         Course temp = new Course();
@@ -160,7 +160,7 @@ public class HomePage extends AppCompatActivity {
                             current = current.substring(current.indexOf("$") + 1);
                             endDate = current;
                             temp = new Course(courseName, multiplier, startDate, endDate);
-                            courseWrapper.addCourse(temp);
+                            //courseWrapper.addCourse(temp);
                         }
 
                         if (text.contains(":Instance:")) {
@@ -184,7 +184,10 @@ public class HomePage extends AppCompatActivity {
                             type = current;
                             temp.addInstance(new CourseInstance(courseName, name, day, date, startTime, endTime, startap, endap, type));
                         }
-                        if (current.contains("END-OF-CLASS")) break;
+                        if (text.contains("END-OF-CLASS")) {
+                            courseWrapper.addCourse(temp);
+                            break;
+                        }
                     }
                 }
             }
@@ -199,32 +202,6 @@ public class HomePage extends AppCompatActivity {
         return courseWrapper;
     }
 
-    public void LaunchNewClassPage(View view) {
-        Intent NewClassIntent = new Intent(this, NewClassPage.class);
-
-        NewClassIntent.putExtra("Course Wrapper", cwrap); // Passing course class from this page to home page ...
-
-        startActivity(NewClassIntent);
-    }
-
-    public void LaunchAssignmentPage(View view) {
-        Intent NewAssignIntent = new Intent(this, AssignmentPage.class);
-        // all we need to pass is string of Course names
-
-        NewAssignIntent.putExtra("Course Wrapper", cwrap);
-
-        Vector<String> courseNames = new Vector<String>();
-
-        for(int i = 1; i < cwrap.allCourses.size(); i++) {
-            courseNames.add(cwrap.allCourses.elementAt(i).name);
-        }
-
-        String[] stringNames = courseNames.toArray(new String[courseNames.size()]);
-
-        NewAssignIntent.putExtra("Course Names", stringNames);
-
-        startActivity(NewAssignIntent);
-    }
 
     public void Right_Click(View view) {
         // get a calendar date for what "today" is
@@ -240,7 +217,7 @@ public class HomePage extends AppCompatActivity {
         nextDay = CourseInstance.calDateToString(c);
 
         // HOW DO I PUT THESE IN THE GUI?
-         //HOW DO I PUT THESE IN THE GUI?
+        //HOW DO I PUT THESE IN THE GUI?
         TextView d1 = (TextView) findViewById(R.id.Day_View_1);
         TextView d2 = (TextView) findViewById(R.id.Day_View_2);
         TextView d3 = (TextView) findViewById(R.id.Day_View_3);
@@ -251,7 +228,7 @@ public class HomePage extends AppCompatActivity {
         tomorrowSched = cwrap.stringTodaysSchedule(tomorrow);
         nextDaySched = cwrap.stringTodaysSchedule(nextDay);
 
-         //put these in the GUI!
+        //put these in the GUI!
 
         String todayStr = today + "\n" + todaySched;
         String tomorrowStr = tomorrow + "\n" + tomorrowSched;
@@ -298,21 +275,32 @@ public class HomePage extends AppCompatActivity {
 
     }
 
+    public void LaunchNewClassPage(View view) {
+        Intent NewClassIntent = new Intent(this, NewClassPage.class);
+
+        NewClassIntent.putExtra("Course Wrapper", cwrap); // Passing course class from this page to home page ...
+
+        startActivity(NewClassIntent);
+    }
+
+    public void LaunchAssignmentPage(View view) {
+        Intent NewAssignIntent = new Intent(this, AssignmentPage.class);
+        // all we need to pass is string of Course names
+
+        NewAssignIntent.putExtra("Course Wrapper", cwrap);
+
+        NewAssignIntent.putExtra("Course Names", cwrap.getCourseNames());
+
+        startActivity(NewAssignIntent);
+    }
+
     public void AddHWButtonPressed(View view) {
         // go to add hw page
         Intent AddHWIntent = new Intent(this, AddHomeworkTime.class);
 
         AddHWIntent.putExtra("Course Wrapper", cwrap);
 
-        Vector<String> courseNames = new Vector<String>();
-
-        for(int i = 0; i < cwrap.allCourses.size(); i++) {
-            courseNames.add(cwrap.allCourses.elementAt(i).name);
-        }
-
-        String[] stringNames = courseNames.toArray(new String[courseNames.size()]);
-
-        AddHWIntent.putExtra("Course Names", stringNames);
+        AddHWIntent.putExtra("Course Names", cwrap.getCourseNames());
 
         startActivity(AddHWIntent);
 
@@ -324,19 +312,9 @@ public class HomePage extends AppCompatActivity {
 
         DeleteIntent.putExtra("Course Wrapper", cwrap);
 
-        Vector<String> courseNames = new Vector<String>();
-        // need to pass vector of course instance names
-        for(int i = 1; i < cwrap.allCourses.size(); i++) {
-            courseNames.add(cwrap.allCourses.elementAt(i).name);
-        }
-        String[] stringNames = courseNames.toArray(new String[courseNames.size()]);
+        DeleteIntent.putExtra("Course Names", cwrap.getCourseNames());
 
-
-        Vector<String> assignmentNames = cwrap.returnAssignments();
-        String[] stringAssignmentNames = assignmentNames.toArray(new String[assignmentNames.size()]);
-
-        DeleteIntent.putExtra("Course Names", stringNames);
-        DeleteIntent.putExtra("Assignment Names", stringAssignmentNames);
+        DeleteIntent.putExtra("Assignment Names", cwrap.returnAssignments());
 
         startActivity(DeleteIntent);
     }
@@ -345,6 +323,12 @@ public class HomePage extends AppCompatActivity {
     Intent weatherIntent = new Intent(this, Weather.class);
     startActivity(weatherIntent);
     }
+
+
+    public void PlanHWTimePressed(View view) {
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void onDestroy() {
         save(cwrap);
@@ -352,8 +336,4 @@ public class HomePage extends AppCompatActivity {
 
     }
 
-
-    public void PlanHWTimePressed(View view) {
-
-    }
 }

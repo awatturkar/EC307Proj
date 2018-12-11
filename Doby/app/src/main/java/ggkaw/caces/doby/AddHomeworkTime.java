@@ -49,32 +49,11 @@ public class AddHomeworkTime extends AppCompatActivity {
         String APs = APStart.getSelectedItem().toString();
         String APe = APEnd.getSelectedItem().toString();
 
-        cwrap = new CourseWrapper((CourseWrapper) getIntent().getSerializableExtra("Course Wrapper"));
-
-        cwrap.allCourses.elementAt(0).addInstance(new CourseInstance("HW Time", sHWName, sTime, eTime, APs, APe, "Homework time"));
-        //String courseName, String name, String day, String date, String startTime, String endTime, String startap, String endap, String type
-        // adding a course INSTANCE to HW COURSE
-        // use selected date
-
-        String sHWName = hwTimeName.getText().toString();
-        String sTime = startTime.getText().toString();
-        String eTime = endTime.getText().toString();
-
-        String APs = APStart.getSelectedItem().toString();
-        String APe = APEnd.getSelectedItem().toString();
-
         CourseWrapper cwrap = new CourseWrapper((CourseWrapper) getIntent().getSerializableExtra("Course Wrapper"));
 
         cwrap.allCourses.elementAt(0).addInstance(new CourseInstance("HW Time", sHWName, selectedDate, sTime, eTime, APs, APe, "Homework time", 1));
         // adding a course INSTANCE to HW COURSE
         // use selected date
-        Intent sendHWWrapper = new Intent(this, HomePage.class);
-        //CourseWrapper cwrap = (CourseWrapper) sendNewWrapper.getSerializableExtra("Course Wrapper");
-
-        sendHWWrapper.putExtra("Flag", "Homework Time Added");
-        sendHWWrapper.putExtra("CourseWrap", cwrap); // Passing course class from this page to home page ...
-        startActivity(sendHWWrapper);
-
         Intent sendHWWrapper = new Intent(this, HomePage.class);
         //CourseWrapper cwrap = (CourseWrapper) sendNewWrapper.getSerializableExtra("Course Wrapper");
 

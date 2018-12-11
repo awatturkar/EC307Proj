@@ -79,11 +79,9 @@ public class Course implements Serializable {
         Calendar endDay = CourseInstance.settingTime(endDate);
         //System.out.println("Start day: " + startDay.getTime());
         int dayDiff = 0;
-        if(dOW > startDay.DAY_OF_WEEK) {
-            dayDiff = abs(dOW-startDay.DAY_OF_WEEK);
-        } else if (dOW < startDay.DAY_OF_WEEK){
-            dayDiff = 7-startDay.DAY_OF_WEEK + dOW;
-        } // else just leave it alone
+        while(dOW != startDay.get(startDay.DAY_OF_WEEK)) {
+            dayDiff++;
+        }
         startDay.add(Calendar.DATE, dayDiff);
         //System.out.println("First date w/ correct day of week: " + startDay.getTime());
         Date d = startDay.getTime();

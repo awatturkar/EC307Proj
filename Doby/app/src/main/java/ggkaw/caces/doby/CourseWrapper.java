@@ -27,6 +27,14 @@ public class CourseWrapper implements Serializable {
         this.allInstances = new Vector<CourseInstance>();
     }
 
+    CourseWrapper(int p) {
+        // need to denote that its the one from the load function
+        this.allCourses = new Vector<Course>();
+        this.allCourses.add(new Course("Homework Times", 1, "1/1/2010", "1/1/3000"));
+        // always first course
+        this.allInstances = new Vector<CourseInstance>();
+    }
+
     CourseWrapper(Vector<CourseInstance> cVec)
     {
         // cvec holds homework instances
@@ -175,17 +183,33 @@ public class CourseWrapper implements Serializable {
         return schedule;
     }
 
-    public Vector<String> returnAssignments() {
+    public String[] returnAssignments() {
         Vector<String> totalInstances = new Vector<String>();
         String curType;
         for(int i = 0; i < this.allInstances.size(); i++) {
             curType = this.allInstances.elementAt(i).type;
-            if(curType.equals("Assignment") || curType.equals("Exam") || curType.equals("Lab Report") || curType.equals("Homework time")) {
+            if(curType.equals("Assignment") || curType.equals("Exam") || curType.equals("Lab Report")) {
                 totalInstances.add(this.allInstances.elementAt(i).name);
             }
         }
-        return totalInstances;
+        String[] assignmentNames = totalInstances.toArray(new String[totalInstances.size()]);
+
+        return assignmentNames;
     }
+
+    public String[] getCourseNames() {
+        Vector<String> courseNames = new Vector<String>();
+
+        // get names of all courses
+        for(int i = 0; i < this.allCourses.size(); i++) {
+            if(!this.allCourses.elementAt(i).name.equals("Homework Times")) // dont want to show this class
+                courseNames.add(this.allCourses.elementAt(i).name);
+        }
+
+        String[] stringNames = courseNames.toArray(new String[courseNames.size()]);
+        return stringNames;
+    }
+
 
 //    public static void main(String[] args) {
 //        Course EK307 = new Course("EK307", 2, "9/1/2018", "12/17/2018");

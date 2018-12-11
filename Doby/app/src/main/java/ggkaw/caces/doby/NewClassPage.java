@@ -47,9 +47,7 @@ public class NewClassPage extends AppCompatActivity {
             if(isValidDate(sstartDate, sendDate)) {
 
                 String scourseName = courseName.getText().toString();
-                double mult = Double.parseDouble(multiplier.getText().toString());
-
-                // check if start date < end date
+                double mult = Double.parseDouble(multiplier.getText().toString()); // ABSOLUTE VALUE THIS
 
                 createdCourse = new Course(scourseName, mult, sstartDate, sendDate); // CREATE NEW CONSTRUCTOR w/ 2 args
                 courseExists = true;
@@ -89,7 +87,7 @@ public class NewClassPage extends AppCompatActivity {
                     if(!createdCourse.hasDuplicate(sstartDate, classDay, classType, startTime, endTime, APStart, APEnd, "-")) {
                         addInstances(createdCourse, classDay, classType, startTime, endTime, APStart, APEnd);
 
-                        Toast.makeText(this, "Lecture/Lab Added", Toast.LENGTH_LONG);
+                        Toast.makeText(this, "Lecture/Lab/Discussion Added", Toast.LENGTH_LONG);
 
                         existingSections.append(className.getText().toString());
                         existingSections.append(" ");

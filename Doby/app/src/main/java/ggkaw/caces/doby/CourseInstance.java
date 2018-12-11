@@ -27,11 +27,7 @@ public class CourseInstance implements Serializable {
         saveString = ":Instance:"+courseName+"$"+name+"$"+this.day+"$"+date+"$"+startTime+"$"+endTime+"$"+startap+"$"+endap+"$"+type;
     }
 
-<<<<<<< HEAD
-    public CourseInstance(String courseName, String date, String startTime, String endTime, String startap, String endap, String type) {
-=======
     public CourseInstance(String courseName, String name, String date, String startTime, String endTime, String startap, String endap, String type, int p) {
->>>>>>> b6be67c1af2072b27a74adf93248ee4cc9348b13
         this.courseName = courseName;
         this.name = ""; // repeating instances do not need a name
         this.startTime = settingTime(date, startTime, startap);

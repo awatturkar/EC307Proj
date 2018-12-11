@@ -77,7 +77,6 @@ public class AssignmentPage extends AppCompatActivity {
         CourseWrapper cwrap = new CourseWrapper((CourseWrapper) getIntent().getSerializableExtra("Course Wrapper"));
         cwrap.addCourseInstances(newInstances);
 
-
         Intent sendNewWrapper = new Intent(this, HomePage.class);
         //CourseWrapper cwrap = (CourseWrapper) sendNewWrapper.getSerializableExtra("Course Wrapper");
 
@@ -87,4 +86,5 @@ public class AssignmentPage extends AppCompatActivity {
 
 
     }
+
 }
