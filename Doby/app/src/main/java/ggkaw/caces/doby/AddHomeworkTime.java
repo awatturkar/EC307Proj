@@ -1,3 +1,4 @@
+
 package ggkaw.caces.doby;
 
 import android.content.Intent;
@@ -12,7 +13,6 @@ import java.util.Calendar;
 
 public class AddHomeworkTime extends AppCompatActivity {
     String selectedDate;
-    CourseWrapper cwrap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class AddHomeworkTime extends AppCompatActivity {
         // convert to string
         selectedDate = CourseInstance.calDateToString(day);
 
-        CalendarView mCalendarView = (CalendarView) findViewById(R.id.Calendar_View);
+        CalendarView mCalendarView = (CalendarView) findViewById(R.id.HW_Calendar_View);
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
@@ -56,9 +56,24 @@ public class AddHomeworkTime extends AppCompatActivity {
         // adding a course INSTANCE to HW COURSE
         // use selected date
 
-    }
+        String sHWName = hwTimeName.getText().toString();
+        String sTime = startTime.getText().toString();
+        String eTime = endTime.getText().toString();
 
-    public void LaunchHWDoneTask(View view) {
+        String APs = APStart.getSelectedItem().toString();
+        String APe = APEnd.getSelectedItem().toString();
+
+        CourseWrapper cwrap = new CourseWrapper((CourseWrapper) getIntent().getSerializableExtra("Course Wrapper"));
+
+        cwrap.allCourses.elementAt(0).addInstance(new CourseInstance("HW Time", sHWName, selectedDate, sTime, eTime, APs, APe, "Homework time", 1));
+        // adding a course INSTANCE to HW COURSE
+        // use selected date
+        Intent sendHWWrapper = new Intent(this, HomePage.class);
+        //CourseWrapper cwrap = (CourseWrapper) sendNewWrapper.getSerializableExtra("Course Wrapper");
+
+        sendHWWrapper.putExtra("Flag", "Homework Time Added");
+        sendHWWrapper.putExtra("CourseWrap", cwrap); // Passing course class from this page to home page ...
+        startActivity(sendHWWrapper);
 
         Intent sendHWWrapper = new Intent(this, HomePage.class);
         //CourseWrapper cwrap = (CourseWrapper) sendNewWrapper.getSerializableExtra("Course Wrapper");
@@ -68,4 +83,10 @@ public class AddHomeworkTime extends AppCompatActivity {
         startActivity(sendHWWrapper);
 
     }
+
+//    public void LaunchHWDoneTask(View view) {
+//
+//
+//
+//    }
 }

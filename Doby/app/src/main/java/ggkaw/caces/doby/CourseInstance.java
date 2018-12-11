@@ -27,7 +27,11 @@ public class CourseInstance implements Serializable {
         saveString = ":Instance:"+courseName+"$"+name+"$"+this.day+"$"+date+"$"+startTime+"$"+endTime+"$"+startap+"$"+endap+"$"+type;
     }
 
+<<<<<<< HEAD
     public CourseInstance(String courseName, String date, String startTime, String endTime, String startap, String endap, String type) {
+=======
+    public CourseInstance(String courseName, String name, String date, String startTime, String endTime, String startap, String endap, String type, int p) {
+>>>>>>> b6be67c1af2072b27a74adf93248ee4cc9348b13
         this.courseName = courseName;
         this.name = ""; // repeating instances do not need a name
         this.startTime = settingTime(date, startTime, startap);
@@ -186,6 +190,15 @@ public class CourseInstance implements Serializable {
                 s = this.courseName + " " + this.type + ": " + convertToHH(this.startTime.get(this.startTime.HOUR)) + ":" + minVal + amOrpm(this.startTime) + "\n";
             } else {
                 s = this.courseName + " " + this.type + ": " + convertToHH(this.startTime.get(this.startTime.HOUR)) + ":" + this.startTime.get(this.startTime.MINUTE) + amOrpm(this.startTime) + "\n";
+            }
+        } else if (this.type.equals("Homework time")) {
+            int startTime = this.startTime.get(this.startTime.MINUTE);
+            if(startTime < 10) {
+                String firstDig = startTime+ "";
+                String minVal = "0" + firstDig;
+                s = this.name + ": " + convertToHH(this.startTime.get(this.startTime.HOUR)) + ":" + minVal + amOrpm(this.startTime) + "\n";
+            } else {
+                s = this.name +  ": " + convertToHH(this.startTime.get(this.startTime.HOUR)) + ":" + this.startTime.get(this.startTime.MINUTE) + amOrpm(this.startTime) + "\n";
             }
         } else {
             s = this.courseName + " " + this.type + ": " + this.name+ "\n";

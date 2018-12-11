@@ -180,7 +180,7 @@ public class CourseWrapper implements Serializable {
         String curType;
         for(int i = 0; i < this.allInstances.size(); i++) {
             curType = this.allInstances.elementAt(i).type;
-            if(curType.equals("Assignment") || curType.equals("Exam") || curType.equals("Lab Report")) {
+            if(curType.equals("Assignment") || curType.equals("Exam") || curType.equals("Lab Report") || curType.equals("Homework time")) {
                 totalInstances.add(this.allInstances.elementAt(i).name);
             }
         }
