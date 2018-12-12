@@ -334,6 +334,11 @@ public class HomePage extends AppCompatActivity {
     startActivity(weatherIntent);
     }
 
+    public void helpPage(View view) {
+        Intent helpIntent = new Intent(this, Help.class);
+        startActivity(helpIntent);
+    }
+
 
 //    public void PlanHWTimePressed(View view) {
 //        int numStudies = 0;

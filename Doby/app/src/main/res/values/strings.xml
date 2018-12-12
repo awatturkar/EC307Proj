@@ -49,6 +49,14 @@
     <string name="set_zip_butt">Set Zipcode</string>
     <string name="hw_plan_butt">Plan HW Time</string>
     <string name="delete_study_time">Delete Study Time</string>
+    <string name="help">HELP</string>
+    <string name="Help_text">Hey there User!!! \n here\'s some help for using the app
+    \n\n-Add Course: Here is where you can add new courses to your schedule. You enter the name, multiplier (difficulty, necessary for future versions of Robin), start date, and end date to "set" the class. Next, you add all of the meeting times for lectures, labs, and discussions of that course before pressing the done button.
+    \n\n-Add Assignent: This page allows you to add multiple duedates for different classes to your schedule all at once. Simply enter the type of assignment, name, class, and date and click "add assignment". Repeat this process as many times as you would like and then click "done" to see all the new duedates appear on your schedule on the main screen.
+    \n\n-Add HW Time: This button allows you to set aside specific chunks of times during which you will study. Just enter the time, name, and date and click the "add" button.
+    \n\n-Weather: The weather feature of Robin provides a current weather report as well as clothing recommendations based on temperature and conditions. Simply enter your zipcode and press the button!
+    \n\n-Delete: The delete button allows you to remove any course, assignment, or study time that you no longer need.
+</string>
     <string-array name="Assignment_Types">
         <item>Assignment</item>
         <item>Exam</item>
