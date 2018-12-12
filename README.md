@@ -14,13 +14,14 @@ Opening the app leads to the main page, where you can find your coming assignmen
 ## Robin's Future
 Development is underway for what will arguably be Robin's most exciting feature; an algorithm to partition your study time based on upcoming assignments and class difficulties in a way that will optimize your performance in school. With this new feature, Robin will transform from a simple planner, something that could be replicated with paper and a pencil, to a highly useful tool to help students be the best they can be. 
 
+
+# More Information
+
 **Prerequisites**: This app can be installed on any device with the Google Play store, as well as opened in Android Studio. 
 
 **Installing**: Download the zip file and open the entire file in Android Studio. The files should automatically open and the project should be runnable. 
 
 **Built With**: Eclipse, IntelliJ IDEA, Android Studio
-
-
 
 **Authors**: Anirudh Watturkar, Sadie Allen, Constantinos Gerontis, Camden Kronhaus, Elisabeth Garfield
 
