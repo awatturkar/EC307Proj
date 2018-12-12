@@ -328,10 +328,12 @@ public class HomePage extends AppCompatActivity {
 
 
     public void PlanHWTimePressed(View view) {
-        Course studyTimes = cwrap.allCourses.elementAt(0);
-        for(int i = 0; i < studyTimes.classTimes.size(); i++) {
-
+        int numStudies = cwrap.allCourses.elementAt(0).classTimes.size();
+        for(int i = 0; i < numStudies; i++) {
+            //GET THE DATES
+            cwrap.splitHomework(cwrap.allCourses.elementAt(0).classTimes.elementAt(i).date);
         }
+        popSched();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
