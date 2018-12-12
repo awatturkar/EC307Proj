@@ -52,6 +52,7 @@ public class AddHomeworkTime extends AppCompatActivity {
         CourseWrapper cwrap = new CourseWrapper((CourseWrapper) getIntent().getSerializableExtra("Course Wrapper"));
 
         cwrap.allCourses.elementAt(0).addInstance(new CourseInstance("HW Time", sHWName, selectedDate, sTime, eTime, APs, APe, "Homework time", 1));
+        cwrap.allInstances.add(new CourseInstance("HW Time", sHWName, selectedDate, sTime, eTime, APs, APe, "Homework time", 1));
         // adding a course INSTANCE to HW COURSE
         // use selected date
         Intent sendHWWrapper = new Intent(this, HomePage.class);

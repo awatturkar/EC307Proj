@@ -30,7 +30,7 @@ public class CourseWrapper implements Serializable {
     CourseWrapper(int p) {
         // need to denote that its the one from the load function
         this.allCourses = new Vector<Course>();
-        this.allCourses.add(new Course("Homework Times", 1, "1/1/2010", "1/1/3000"));
+        //this.allCourses.add(new Course("Homework Times", 1, "1/1/2010", "1/1/3000"));
         // always first course
         this.allInstances = new Vector<CourseInstance>();
     }
@@ -67,15 +67,19 @@ public class CourseWrapper implements Serializable {
 
     public void addCourseInstances(Vector<CourseInstance> newInstances) {
         for (int i = 0; i < newInstances.size(); i++) {
+            String courseNameOfCurrInst = newInstances.elementAt(i).courseName;
             for(int j = 0; j < this.allCourses.size(); j++) {
-                if(this.allCourses.elementAt(j).name.equals(newInstances.elementAt(i).courseName)) {
+                String currentCourseName = this.allCourses.elementAt(j).name;
+                if(currentCourseName.equals(courseNameOfCurrInst)) {
                     this.allCourses.elementAt(j).addInstance(newInstances.elementAt(i));
-                    break; // will not have the same name as multiple courses
+                    //break; // will not have the same name as multiple courses
                 }
             }
             this.allInstances.add(newInstances.elementAt(i));
         }
     }
+
+
 
     public void populateInstances() {
         // puts all course instances into "all instances" field of course wrapper
