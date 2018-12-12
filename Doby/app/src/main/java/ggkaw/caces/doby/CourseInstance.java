@@ -12,6 +12,8 @@ public class CourseInstance implements Serializable {
     String name;
     Calendar startTime;
     Calendar endTime;
+    String startap;
+    String endap;
     String type;
     String saveString;
     String day;
@@ -57,6 +59,19 @@ public class CourseInstance implements Serializable {
         this.day = dayOfWeekString(this.startTime.get(this.startTime.DAY_OF_WEEK));
         this.type = type;
         saveString = ":Instance:"+courseName+"$"+name+"$"+day+"$"+date+"$"+"0:00"+"$"+"0:00"+"$"+"AM"+"$"+"AM"+"$"+type;
+    }
+
+    CourseInstance(CourseInstance newInstance) {
+    this.courseName = newInstance.courseName;
+    this.name = ""; // repeating instances do not need a name
+    this.startTime = newInstance.startTime;
+    this.endTime = newInstance.endTime;
+    this.type = type;
+    this.day = day;
+    saveString = ":Instance:"+courseName+"$"+name+"$"+this.day+"$"+startTime.get(Calendar.DATE)+"$"+startTime+"$"+endTime+"$"+startTime.get(Calendar.AM_PM)+"$"+endTime.get(Calendar.AM_PM)+"$"+type;
+    }
+
+    public CourseInstance() {
     }
 
     public static String dayOfWeekString(int i) {

@@ -35,16 +35,16 @@ public class CourseWrapper implements Serializable {
         this.allInstances = new Vector<CourseInstance>();
     }
 
-    CourseWrapper(Vector<CourseInstance> cVec)
-    {
-        // cvec holds homework instances
-        this.allCourses = new Vector<Course>();
-        this.allInstances = new Vector<CourseInstance>();
-        for(int i = 0; i < cVec.size(); i ++)
-        {
-            this.allCourses.elementAt(0).addInstance(cVec.elementAt(i));
-        }
-    }
+    // CourseWrapper(Vector<CourseInstance> cVec)
+    // {
+    //     // cvec holds homework instances
+    //     this.allCourses = new Vector<Course>();
+    //     this.allInstances = new Vector<CourseInstance>();
+    //     for(int i = 0; i < cVec.size(); i ++)
+    //     {
+    //         this.allCourses.elementAt(0).addInstance(cVec.elementAt(i));
+    //     }
+    // }
 
     // Copy Constructor
     CourseWrapper(CourseWrapper c) {
@@ -68,7 +68,7 @@ public class CourseWrapper implements Serializable {
     public void addCourseInstances(Vector<CourseInstance> newInstances) {
         for (int i = 0; i < newInstances.size(); i++) {
             for(int j = 0; j < this.allCourses.size(); j++) {
-                if(this.allCourses.elementAt(j).name == newInstances.elementAt(i).courseName) {
+                if(this.allCourses.elementAt(j).name.equals(newInstances.elementAt(i).courseName)) {
                     this.allCourses.elementAt(j).addInstance(newInstances.elementAt(i));
                     break; // will not have the same name as multiple courses
                 }
@@ -233,4 +233,3 @@ public class CourseWrapper implements Serializable {
 //
 //    }
 }
-
