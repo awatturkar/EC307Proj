@@ -72,28 +72,33 @@ public class Course implements Serializable {
     }
 
     public static Vector<String> findDates(String startDate, String endDate, String dayOfWeek) {
-        int dOW = CourseInstance.dayOfWeekInt(dayOfWeek);
+        int dOW = CourseInstance.dayOfWeekInt(dayOfWeek); // day of week it should be
         Vector<String> stringDates = new Vector<String>();
         // get start and end date in calendar form
         Calendar startDay = CourseInstance.settingTime(startDate);
         Calendar endDay = CourseInstance.settingTime(endDate);
         //System.out.println("Start day: " + startDay.getTime());
         int dayDiff = 0;
-        while(dOW != startDay.get(startDay.DAY_OF_WEEK)) {
+        int startDayDOW = startDay.get(startDay.DAY_OF_WEEK);
+        while(dOW != startDayDOW) {
             dayDiff++;
+            startDayDOW++;
+            if(startDayDOW > 7) {
+                startDayDOW = 1;
+            }
         }
         startDay.add(Calendar.DATE, dayDiff);
         //System.out.println("First date w/ correct day of week: " + startDay.getTime());
         Date d = startDay.getTime();
         Calendar cal = Calendar.getInstance();
         cal.setTime(d);
-        stringDates.add(CourseInstance.calDateToString(startDay));
+        //stringDates.add(CourseInstance.calDateToString(startDay));
         // at the end of this loop, startDay is the first xday you want
         // now add 7 to this date, stop when the date is "larger" than the last date
         int seeComp;
         while(startDay.compareTo(endDay) <= 0) {
-            startDay.add(Calendar.DAY_OF_YEAR, 7);
             stringDates.add(CourseInstance.calDateToString(startDay));
+            startDay.add(Calendar.DAY_OF_YEAR, 7);
             seeComp = startDay.compareTo(endDay);
             //System.out.println(startDay);
         }

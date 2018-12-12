@@ -102,10 +102,10 @@ public class HomePage extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void save(CourseWrapper course) {
         String saveText = cwrap.saveCourses();
-        FileOutputStream fos; // =  new FileOutputStream("output", false);;
+        FileOutputStream fos =  null;
 
         try {
-            fos =  new FileOutputStream(FILE_NAME, false);
+            fos =  openFileOutput(FILE_NAME, MODE_PRIVATE);
             fos.write(saveText.getBytes());
             //Toast.makeText(this,"Saved!", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
