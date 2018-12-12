@@ -18,6 +18,20 @@ Built With:
 
 Eclipse, Android Studio
 
+# EC307Proj
+
+# Instructions for Use
+Opening the app leads to the main page, where you can find your coming assignments within the next three days. Click the left and right arrows to scroll to past or future dates. The main page also contains the buttons that lead to all of Robin's other features:
+* **Add Course**: Here is where you can add new courses to your schedule. You enter the name, multiplier (difficulty, necessary for future versions of Robin), start date, and end date to "set" the class. Next, you add all of the meeting times for lectures, labs, and discussions of that course before pressing the done button.
+* **Add Assignent**: This page allows you to add multiple duedates for different classes to your schedule all at once. Simply enter the type of assignment, name, class, and date and click "add assignment". Repeat this process as many times as you would like and then click "done" to see all the new duedates appear on your schedule on the main screen. 
+* **Add HW Time**: This button allows you to set aside specific chunks of times during which you will study. Just enter the time, name, and date and click the "add" button. 
+* **Weather**: The weather feature of Robin provides a current weather report as well as clothing recommendations based on temperature and conditions. Simply enter your zipcode and press the button!
+* **Delete**: The delete button allows you to remove any course, assignment, or study time that you no longer need.
+
+## Robin's Future
+Development is underway for what will arguably be Robin's most exciting feature; an algorithm to partition your study time based on upcoming assignments and class difficulties in a way that will optimize your performance in school. With this new feature, Robin will transform from a simple planner, something that could be replicated with paper and a pencil, to a highly useful tool to help students be the best they can be. 
+
+
 Authors:
 
 Anirudh Watturkar
