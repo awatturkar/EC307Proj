@@ -12,6 +12,7 @@ public class CourseInstance implements Serializable {
     String name;
     Calendar startTime;
     Calendar endTime;
+    String date;
     String startap;
     String endap;
     String type;
@@ -24,6 +25,7 @@ public class CourseInstance implements Serializable {
         this.name = ""; // repeating instances do not need a name
         this.startTime = settingTime(date, startTime, startap);
         this.endTime = settingTime(date, endTime, endap);
+        this.date = date;
         this.type = type;
         this.day = day;
         saveString = ":Instance:"+courseName+"$"+name+"$"+this.day+"$"+date+"$"+startTime+"$"+endTime+"$"+startap+"$"+endap+"$"+type;
@@ -34,6 +36,7 @@ public class CourseInstance implements Serializable {
         this.name = name; // repeating instances do not need a name
         this.startTime = settingTime(date, startTime, startap);
         this.endTime = settingTime(date, endTime, endap);
+        this.date = date;
         this.type = type;
         this.day = dayOfWeekString(this.startTime.get(this.startTime.DAY_OF_WEEK));
         saveString = ":Instance:"+courseName+"$"+name+"$"+this.day+"$"+date+"$"+startTime+"$"+endTime+"$"+startap+"$"+endap+"$"+type;
@@ -46,6 +49,7 @@ public class CourseInstance implements Serializable {
         this.startTime = settingTime(date, startTime, startap);
         this.endTime = settingTime(date, endTime, endap);
         this.type = type;
+        this.date = date;
         this.day = day;
         saveString = ":Instance:"+courseName+"$"+name+"$"+this.day+"$"+date+"$"+startTime+"$"+endTime+"$"+startap+"$"+endap+"$"+type;
     }
@@ -56,6 +60,7 @@ public class CourseInstance implements Serializable {
         this.name = name;
         this.startTime = settingTime(date);
         this.endTime = this.startTime;
+        this.date = date;
         this.day = dayOfWeekString(this.startTime.get(this.startTime.DAY_OF_WEEK));
         this.type = type;
         saveString = ":Instance:"+courseName+"$"+name+"$"+day+"$"+date+"$"+"0:00"+"$"+"0:00"+"$"+"AM"+"$"+"AM"+"$"+type;
@@ -66,8 +71,9 @@ public class CourseInstance implements Serializable {
     this.name = ""; // repeating instances do not need a name
     this.startTime = newInstance.startTime;
     this.endTime = newInstance.endTime;
-    this.type = type;
-    this.day = day;
+    this.date = newInstance.date;
+    this.type = newInstance.type;
+    this.day = newInstance.day;
     saveString = ":Instance:"+courseName+"$"+name+"$"+this.day+"$"+startTime.get(Calendar.DATE)+"$"+startTime+"$"+endTime+"$"+startTime.get(Calendar.AM_PM)+"$"+endTime.get(Calendar.AM_PM)+"$"+type;
     }
 

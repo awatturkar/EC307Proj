@@ -92,14 +92,6 @@ public class CourseWrapper implements Serializable {
 
     }
 
-    public void printCourses() {
-        for(int i = 0; i < this.allCourses.size(); i++) {
-            System.out.println("####-" + i + "-####");
-            allCourses.elementAt(i).printCourseInfo(i);
-            System.out.println("****-" + i + "-****");
-        }
-    }
-
     // for deleting entire courses and all instances
     public void deleteCourse(String courseName) {
         for(int i = 0; i < this.allCourses.size(); i++) {
@@ -140,10 +132,7 @@ public class CourseWrapper implements Serializable {
         }
     }
 
-     // for deleting hws, exams, lab reports
-    public void deleteInstance(String instName) {
 
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public String saveCourses(){
@@ -214,26 +203,97 @@ public class CourseWrapper implements Serializable {
         return stringNames;
     }
 
+    public  Vector<Double> getWeightedDistance(String date){
+        Vector<Integer> distance = getDistance(date);
+        Vector<Double> weightedDistance = new Vector<Double>();
 
-//    public static void main(String[] args) {
-//        Course EK307 = new Course("EK307", 2, "9/1/2018", "12/17/2018");
-//        Course.addInstances(EK307,"Monday", "Lecture", "10:10", "11:55", "AM", "AM");
-//        // add a hw
-//        CourseInstance hw1EK307 = new CourseInstance("EK307", "Wednesday", "12/5/2018", "Homework");
-//        EK307.addInstance(hw1EK307);
-//
-//        Course EC327 = new Course("EC327", 4, "9/1/2018", "12/17/2018");
-//        Course.addInstances(EC327, "Monday", "Lecture", "2:30", "4:15", "PM", "PM");
-//        CourseInstance hw1EC327 = new CourseInstance("EC327", "Monday", "12/10/2018", "Homework");
-//        EC327.addInstance(hw1EC327);
-//
-//        CourseWrapper cwrap = new CourseWrapper();
-//        cwrap.addCourse(EK307);
-//        cwrap.addCourse(EC327);
-//
-//        // Try printing
-//        cwrap.printCourses();
-//
-//
-//    }
+        for(int i = 0; i < distance.size(); i++){
+            weightedDistance.add(this.allCourses.elementAt(i).multiplier * distance.elementAt(i));
+        }
+        return weightedDistance;
+    }
+
+    //For every assignment in the next 7 days, add a "point" to the distance vector
+    //Check how "far" assignments are. Essentially, giving priority by distance from due
+    //date. 6 is highest priority, 1 lowest
+    public Vector<Integer> getDistance(String date){
+        Vector<CourseInstance> todayCInst = this.getTodaysSchedule(date);
+        Calendar thisDate = CourseInstance.settingTime(date);
+
+        Vector<Integer> distance = new Vector<Integer>(10);
+        int tempDist = 0;
+
+        for(int i = 0; i < this.allCourses.size()-1; i ++){
+            for(int j = 1 ; j < 7; j++) {
+                thisDate.add(Calendar.DATE, 1);
+                todayCInst = this.getTodaysSchedule(CourseInstance.calDateToString(thisDate));
+
+                for (int k = 0; k < todayCInst.size(); k++) {
+                    if (this.allCourses.elementAt(i + 1).name == todayCInst.elementAt(k).courseName) {
+                        tempDist = tempDist + (7-j);
+                    }
+                }
+            }
+            thisDate = CourseInstance.settingTime(date);
+            distance.add(tempDist);
+            tempDist = 0;
+        }//end of outer for
+        return distance;
+    }//end of func
+
+
+    public void splitHomework(String date)
+    {
+        CourseInstance initial = new CourseInstance();
+        Vector<CourseInstance> result = new Vector<CourseInstance>();
+        Vector<Double> distances = getWeightedDistance(date);
+        Calendar lastEnd;
+        Calendar startTime;
+        Calendar endTime;
+        String startStr;
+        String endStr;
+        long duration;   //Duration in minutes
+        int newDuration;
+        double totalWeight = 0;
+        double weight = 0;
+        Course currentCourse;
+
+        for(int j = 1; j < this.allCourses.size() ; j ++)
+        {
+            totalWeight = totalWeight + distances.elementAt(j-1);
+        }
+
+        for(int i = 0; i < this.allCourses.elementAt(0).classTimes.size(); i++) {
+            if (this.allCourses.elementAt(0).classTimes.elementAt(i).date.equals(date)){
+                initial = this.allCourses.elementAt(0).classTimes.elementAt(i);
+                startTime = initial.startTime;
+                endTime = initial.endTime;
+                lastEnd = startTime;
+                duration = (endTime.getTimeInMillis() - startTime.getTimeInMillis()) / (60 * 1000);
+                System.out.println(duration);
+                for (int j = 1; j < this.allCourses.size(); j++) {
+                    newDuration = (int) ((distances.get(j-1)/totalWeight)*duration);
+                    System.out.println(newDuration);
+                    startTime = lastEnd;
+                    endTime = (Calendar) startTime.clone();
+                    endTime.add(Calendar.MINUTE, newDuration);
+                    startStr = startTime.get(Calendar.HOUR) + ":" + startTime.get(Calendar.MINUTE);
+                    endStr = endTime.get(Calendar.HOUR) + ":" + endTime.get(Calendar.MINUTE);
+                    lastEnd = endTime;
+                    currentCourse = this.allCourses.elementAt(j);
+                    // add new instance to HW course, name should be name of that course
+                    result.add(new CourseInstance(currentCourse.name, CourseInstance.dayOfWeekString(endTime.get(Calendar.DAY_OF_WEEK)), date, startStr, endStr, CourseInstance.amOrpm(startTime) , CourseInstance.amOrpm(endTime), (currentCourse.name + "HWTime")));
+                }
+            }
+        }
+        // delete original instance and add new split bois
+        this.allCourses.elementAt(0).classTimes.remove(0);
+        for(int i = 0; i < result.size(); i++) {
+            this.allCourses.elementAt(0).classTimes.add(result.elementAt(i));
+        }
+        //this.allInstances.size()
+        //ALSO MUST ADD AND REMOVE FROM ALL INSTANCES FIELD
+    }
+
+
 }

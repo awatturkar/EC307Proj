@@ -328,7 +328,10 @@ public class HomePage extends AppCompatActivity {
 
 
     public void PlanHWTimePressed(View view) {
+        Course studyTimes = cwrap.allCourses.elementAt(0);
+        for(int i = 0; i < studyTimes.classTimes.size(); i++) {
 
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
