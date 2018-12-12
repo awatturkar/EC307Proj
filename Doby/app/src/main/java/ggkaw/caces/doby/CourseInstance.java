@@ -29,7 +29,7 @@ public class CourseInstance implements Serializable {
 
     public CourseInstance(String courseName, String name, String date, String startTime, String endTime, String startap, String endap, String type, int p) {
         this.courseName = courseName;
-        this.name = ""; // repeating instances do not need a name
+        this.name = name; // repeating instances do not need a name
         this.startTime = settingTime(date, startTime, startap);
         this.endTime = settingTime(date, endTime, endap);
         this.type = type;

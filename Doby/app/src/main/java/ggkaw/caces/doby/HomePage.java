@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Vector;
 
 public class HomePage extends AppCompatActivity {
-    private static final String FILE_NAME = "saved_data6.txt";
+    private static final String FILE_NAME = "saved_data5.txt";
     public CourseWrapper cwrap;
     String today;
     String tomorrow;
@@ -130,6 +130,7 @@ public class HomePage extends AppCompatActivity {
         String current = "";
         int numOfCourses = 0;
         CourseWrapper courseWrapper = new CourseWrapper(1);
+        Vector<Course> addedCourses = new Vector<Course>();
 
         FileInputStream fis = null;
         Course temp = new Course();
@@ -186,6 +187,7 @@ public class HomePage extends AppCompatActivity {
                         }
                         if (text.contains("END-OF-CLASS")) {
                             courseWrapper.addCourse(temp);
+                            //delete temp;
                             break;
                         }
                     }
@@ -198,7 +200,7 @@ public class HomePage extends AppCompatActivity {
             e.printStackTrace();
         }
         // load courseInstances into courseInstance array
-        courseWrapper.populateInstances();
+        //courseWrapper.populateInstances();
         return courseWrapper;
     }
 
