@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Vector;
 
 public class HomePage extends AppCompatActivity {
-    private static final String FILE_NAME = "saved_data5.txt";
+    private static final String FILE_NAME = "saved_data2.txt";
     public CourseWrapper cwrap;
     String today;
     String tomorrow;
@@ -318,6 +318,14 @@ public class HomePage extends AppCompatActivity {
 
         DeleteIntent.putExtra("Assignment Names", cwrap.returnAssignments());
 
+        Vector<String> studyNames = new Vector<String>();
+        for(int i = 0; i < cwrap.allCourses.elementAt(0).classTimes.size(); i++) {
+            studyNames.add(cwrap.allCourses.elementAt(0).classTimes.elementAt(i).courseName + cwrap.allCourses.elementAt(0).classTimes.elementAt(i).date);
+        }
+        String[] studNames = studyNames.toArray(new String[studyNames.size()]);
+
+        DeleteIntent.putExtra("Study Names", studNames);
+
         startActivity(DeleteIntent);
     }
 
@@ -327,20 +335,37 @@ public class HomePage extends AppCompatActivity {
     }
 
 
-    public void PlanHWTimePressed(View view) {
-        int numStudies = cwrap.allCourses.elementAt(0).classTimes.size();
-        for(int i = 0; i < numStudies; i++) {
-            //GET THE DATES
-            cwrap.splitHomework(cwrap.allCourses.elementAt(0).classTimes.elementAt(i).date);
-        }
-        popSched();
-    }
+//    public void PlanHWTimePressed(View view) {
+//        int numStudies = 0;
+//        for(int i = 0; i < cwrap.allCourses.elementAt(0).classTimes.size(); i++) {
+//            if (!cwrap.allCourses.elementAt(0).classTimes.elementAt(i).split) {
+//                numStudies++;
+//            }
+//        }
+//        Vector<CourseInstance> newSplits = new Vector<CourseInstance>();
+//        for(int i = 0; i < numStudies; i++) {
+//            //GET THE DATES
+//            newSplits = cwrap.splitHomework(cwrap.allCourses.elementAt(0).classTimes.elementAt(i).date);
+//            // add new splits
+//            for(int j = 0; j < newSplits.size(); j++) {
+//                cwrap.allCourses.elementAt(0).addInstance(newSplits.elementAt(i));
+//            }
+//        }
+        // remove original study blocks
+//        for(int i = cwrap.allCourses.elementAt(0).classTimes.size(); i >= 0; i-- ) {
+//            CourseInstance currElem = cwrap.allCourses.elementAt(0).classTimes.elementAt(i);
+//            if(!currElem.split) {
+//                cwrap.allCourses.elementAt(0).removeInstance(i);
+//            }
+//        }
+//        popSched();
+//    }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void onDestroy() {
-        save(cwrap);
-        super.onDestroy();
-
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//    public void onDestroy() {
+//        save(cwrap);
+//        super.onDestroy();
+//
+//    }
 
 }

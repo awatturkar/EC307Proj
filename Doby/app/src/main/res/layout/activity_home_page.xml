@@ -220,17 +220,4 @@
         app:layout_constraintStart_toStartOf="@+id/guideline12"
         app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
-    <Button
-        android:id="@+id/hw_plan_butt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/hw_plan_butt"
-        android:onClick="PlanHWTimePressed"
-        app:layout_constraintBottom_toTopOf="@+id/addHW_butt"
-        app:layout_constraintEnd_toEndOf="@+id/addHW_butt"
-        app:layout_constraintStart_toStartOf="@+id/addHW_butt"
-        app:layout_constraintTop_toTopOf="@+id/guideline18" />
-
 </android.support.constraint.ConstraintLayout>

@@ -18,6 +18,7 @@ public class CourseInstance implements Serializable {
     String type;
     String saveString;
     String day;
+    Boolean split;
 
     // use for lectures, labs, discussions (type, day, start time, end time, start date, end date) REPEATERS
     public CourseInstance(String courseName, String day, String date, String startTime, String endTime, String startap, String endap, String type) {

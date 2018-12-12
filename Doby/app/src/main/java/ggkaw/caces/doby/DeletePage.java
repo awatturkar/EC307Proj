@@ -24,12 +24,17 @@ public class DeletePage extends AppCompatActivity {
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s1.setAdapter(adapter1);
 
-        //!!!!!!!!! ERRROR LINE 28
         String[] assignmentNames = getIntent().getStringArrayExtra("Assignment Names");
         Spinner s2 = (Spinner) findViewById(R.id.Assignment_Spinner);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, assignmentNames);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s2.setAdapter(adapter2);
+
+        String[] studyTimeNames = getIntent().getStringArrayExtra("Study Names");
+        Spinner s3 = (Spinner) findViewById(R.id.study_spinner);
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, studyTimeNames);
+        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s3.setAdapter(adapter3);
     }
 
     public void deleteCourse(View view) {
@@ -54,5 +59,11 @@ public class DeletePage extends AppCompatActivity {
         startActivity(sendNewWrapper);
     }
 
+    public void deleteStudyTimes(View view) {
+        Spinner s = (Spinner) findViewById(R.id.study_spinner);
+        int idx = s.getSelectedItemPosition();
+        cwrap.allCourses.elementAt(0).classTimes.remove(idx);
+        // doesn't remove from "all instances"
+    }
 }
 

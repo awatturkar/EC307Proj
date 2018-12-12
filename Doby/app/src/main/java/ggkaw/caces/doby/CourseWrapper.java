@@ -242,7 +242,7 @@ public class CourseWrapper implements Serializable {
     }//end of func
 
 
-    public void splitHomework(String date)
+    public Vector<CourseInstance> splitHomework(String date)
     {
         CourseInstance initial = new CourseInstance();
         Vector<CourseInstance> result = new Vector<CourseInstance>();
@@ -287,10 +287,7 @@ public class CourseWrapper implements Serializable {
             }
         }
         // delete original instance and add new split bois
-        this.allCourses.elementAt(0).classTimes.remove(0);
-        for(int i = 0; i < result.size(); i++) {
-            this.allCourses.elementAt(0).classTimes.add(result.elementAt(i));
-        }
+        return result;
         //this.allInstances.size()
         //ALSO MUST ADD AND REMOVE FROM ALL INSTANCES FIELD
     }

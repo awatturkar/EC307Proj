@@ -48,6 +48,7 @@
     <string name="end_time_HW">End Time</string>
     <string name="set_zip_butt">Set Zipcode</string>
     <string name="hw_plan_butt">Plan HW Time</string>
+    <string name="delete_study_time">Delete Study Time</string>
     <string-array name="Assignment_Types">
         <item>Assignment</item>
         <item>Exam</item>
